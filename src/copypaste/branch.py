@@ -5,19 +5,20 @@ if TYPE_CHECKING:
     from typing import ClassVar
 
 class Branch:
-    __id: ClassVar[int] = 0
+    __n: ClassVar[int] = 0
 
-    def __init__(self, _parent: Branch | None = None, _version: int = 0) -> None:
+    def __init__(self, name: str | None = None, _parent: Branch | None = None, _version: int = 0) -> None:
         self._parent = _parent
         self._children: list[Branch] = []
         self._version = _version
-        self._id = Branch.__id
+        self.name = name
+        self._id = Branch.__n
 
-        Branch.__id += 1
+        Branch.__n += 1
 
     @override
     def __repr__(self) -> str:
-        return f"Branch nº {self._id} version {self._version}"
+        return f"Branch nº {self._id} {f'"{self.name}"' if self.name is not None else ""} version {self._version}"
 
     def __iter__(self) -> Iterator[Branch]:
         return iter(self._children)
@@ -34,8 +35,8 @@ class Branch:
         if self.parent is not None:
             yield from self.parent.history()
 
-    def new_child(self) -> Branch:
-        child = Branch(self, self._version)
+    def new_child(self, name: str | None = None) -> Branch:
+        child = Branch(name, self, self._version)
         self._children.append(child)
 
         return child
