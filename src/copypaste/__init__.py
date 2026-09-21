@@ -1,4 +1,5 @@
-from .branch import Branch
+from .branch import Branch, MergeBranch
 from .copy import Copy
+from .error import BranchError, Error, GeneticError, ParentError
 
-__all__ = ["Branch", "Copy"]
+__all__ = ["Branch", "BranchError", "Copy", "Error", "GeneticError", "MergeBranch", "ParentError"]
