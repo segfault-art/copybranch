@@ -71,7 +71,7 @@ wheels = [
 ]
 
 [[package]]
-name = "copypaste"
+name = "copybranch"
 version = "0.1.0"
 source = { editable = "." }
 
