@@ -93,7 +93,20 @@ cache_fine_grained = true
 
 exclude_gitignore = true
 
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "D"
+]
+
+ignore = [
+    "D212"
+]
+
 [dependency-groups]
 dev = [
     "mypy>=2.3.1",
+    "ruff>=0.16.8",
 ]

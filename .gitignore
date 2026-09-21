@@ -9,5 +9,12 @@ wheels/
 # Virtual environments
 .venv
 
-# Mypy cache
+# Tools cache
 .mypy_cache/
+.ruff_cache/
+.scannerwork/
+.sonarlint/
+
+# IDEs
+.vscode/
+.idea/
