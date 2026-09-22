@@ -8,16 +8,14 @@ if TYPE_CHECKING:
     from collections.abc import Iterator
     from typing import ClassVar, Never
 
+
 class Branch:
     """Class for all branches."""
 
     _next_id: ClassVar[int] = 0
 
     def __init__(
-        self,
-        name: str | None = None,
-        _parent: Branch | None = None,
-        _version: int = 0
+        self, name: str | None = None, _parent: Branch | None = None, _version: int = 0
     ) -> None:
         """Initialize a branch with optional name."""
         self._parent = _parent
@@ -35,8 +33,10 @@ class Branch:
 
     @override
     def __repr__(self) -> str:
-        return (f"Branch nº {self._id} "
-        f"{f'"{self.name}"' if self.name is not None else ""} version {self._version}")
+        return (
+            f"Branch nº {self._id} "
+            f"{f'"{self.name}"' if self.name is not None else ''} version {self._version}"
+        )
 
     def __iter__(self) -> Iterator[Branch]:
         """Yield the child branches."""
@@ -93,15 +93,11 @@ class Branch:
         """The current branch's version."""
         return self._version
 
-class MergeBranch(Branch):
-    """"Class for merge branches."""
 
-    def __init__(
-        self,
-        version: int,
-        *parents: Branch,
-        name: str | None = None
-    ) -> None:
+class MergeBranch(Branch):
+    """Class for merge branches."""
+
+    def __init__(self, version: int, *parents: Branch, name: str | None = None) -> None:
         """Initialize a merge branch with version, parents and optional name given."""
         self._parents = parents
         self._version = version
@@ -119,8 +115,10 @@ class MergeBranch(Branch):
 
     @override
     def __repr__(self) -> str:
-        return (f"Merge branch nº {self._id} "
-        f"{f'"{self.name}"' if self.name is not None else ""} version {self._version}")
+        return (
+            f"Merge branch nº {self._id} "
+            f"{f'"{self.name}"' if self.name is not None else ''} version {self._version}"
+        )
 
     @override
     def history(self) -> Iterator[Branch]:
@@ -150,8 +148,10 @@ class MergeBranch(Branch):
             current_first_parent = parent.first_parent()
 
             if first_parent is not None and current_first_parent != first_parent:
-                raise GeneticError("Merge branch parents have different families. "
-                "Cannot determinate the first parent")
+                raise GeneticError(
+                    "Merge branch parents have different families. "
+                    "Cannot determinate the first parent"
+                )
 
             if first_parent is None:
                 first_parent = current_first_parent

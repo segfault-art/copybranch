@@ -11,5 +11,5 @@ __all__ = [
     "Error",
     "GeneticError",
     "MergeBranch",
-    "ParentError"
+    "ParentError",
 ]

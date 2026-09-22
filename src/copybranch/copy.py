@@ -1,7 +1,7 @@
 """Copy implementation."""
 
 from copy import deepcopy
-from typing import overload
+from typing import TypeIs, overload
 
 from .branch import Branch, MergeBranch
 
@@ -13,37 +13,32 @@ class Copy[T, U: (Branch, MergeBranch) = Branch]:
 
     @overload
     def __init__(
-        self,
-        value: T,
-        branch_name: None = None,
-        *,
-        branch: None = None
-    ) -> None:
-        ...
+        self, value: T, branch_name: None = None, *, branch: None = None
+    ) -> None: ...
 
     @overload
-    def __init__(self, value: T, branch_name: str, *, branch: None = None) -> None:
-        ...
+    def __init__(self, value: T, branch_name: str, *, branch: None = None) -> None: ...
 
     @overload
-    def __init__(self, value: T, branch_name: None = None, *, branch: U) -> None:
-        ...
+    def __init__(self, value: T, branch_name: None = None, *, branch: U) -> None: ...
 
     def __init__(
-        self,
-        value: T,
-        branch_name: str | None = None,
-        *,
-        branch: U | None = None
+        self, value: T, branch_name: str | None = None, *, branch: U | None = None
     ) -> None:
         """Initialize a copy with optional name or branch given."""
         self._value = deepcopy(value)
+        new_branch = branch if branch is not None else Branch()
 
-        if branch is not None:
-            self._branch = branch
+        def valide_branch(new_branch: Branch) -> TypeIs[U]:
+            return isinstance(
+                new_branch, type(branch) if branch is not None else Branch
+            )
+
+        if valide_branch(new_branch):
+            self._branch = new_branch
 
         else:
-            self._branch = Branch(branch_name) # type: ignore[assignment]  # ty: ignore[invalid-assignment]
+            raise TypeError("Has occurred an unexpected fatal error.")
 
     def derive(self, branch_name: str | None = None) -> Copy[T, Branch]:
         """
@@ -67,7 +62,7 @@ class Copy[T, U: (Branch, MergeBranch) = Branch]:
         self,
         *other_copies: Copy[T],
         new_value: T | None = None,
-        name: str | None = None
+        name: str | None = None,
     ) -> Copy[T, MergeBranch]:
         """
         Create a new copy merging self and other_copies.
@@ -92,7 +87,7 @@ class Copy[T, U: (Branch, MergeBranch) = Branch]:
             self._branch.version,
             self._branch,
             *(copy._branch for copy in other_copies),
-            name=name
+            name=name,
         )
 
         new_copy = Copy(new_value, None, branch=merge_branch)

@@ -93,6 +93,9 @@ cache_fine_grained = true
 
 exclude_gitignore = true
 
+[tool.ruff]
+line-length = 90
+
 [tool.ruff.lint]
 select = [
     "E",
