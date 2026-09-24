@@ -3,11 +3,9 @@ name = "copybranch"
 version = "0.1.0"
 description = "A library for copy and paste"
 readme = "README.md"
-authors = [
-    { name = "Segfault", email = "miguelprossatto@gmail.com" }
-]
+authors = [{ name = "Segfault", email = "miguelprossatto@gmail.com" }]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = ["pytest>=9.1.1"]
 
 [build-system]
 requires = ["uv_build>=0.12.17,<0.13.0"]
@@ -15,6 +13,8 @@ build-backend = "uv_build"
 
 [tool.mypy]
 python_version = "3.14"
+
+mypy_path = "src:tests:examples"
 
 strict = true
 
@@ -58,7 +58,6 @@ ignore_missing_imports = false
 follow_imports = "normal"
 follow_imports_for_stubs = true
 
-namespace_packages = true
 explicit_package_bases = true
 
 show_error_codes = true
@@ -97,19 +96,22 @@ exclude_gitignore = true
 line-length = 90
 
 [tool.ruff.lint]
-select = [
-    "E",
-    "F",
-    "I",
-    "D"
-]
+select = ["E", "F", "I", "D"]
 
-ignore = [
-    "D212"
-]
+ignore = ["D212"]
+
+[tool.ruff.lint.per-file-ignores]
+"examples/*.py" = ["D"]
+"tests/*.py" = ["D"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [dependency-groups]
 dev = [
     "mypy>=2.3.1",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
     "ruff>=0.16.8",
+    "ty>=0.0.84",
 ]

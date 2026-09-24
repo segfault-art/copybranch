@@ -31,7 +31,7 @@ uv add copybranch
 
 ## Usage
 
-There are some examples in the [examples](examples/) directory.
+There are some examples in the [examples](examples/en) directory.
 
 ```Python
 from copybranch import Copy
@@ -77,12 +77,13 @@ It has:
 - 100% of the library statically typed, with no dependency on stub installation
 - 0 `Any`
 - 0 `cast`
-- 0 `type: ignore`
+- 0 `# type: ignore`
 
 The tools used in the project include:
 
 - Mypy
 - Ruff
+- Ty
 - SonarQube
 
 ## License

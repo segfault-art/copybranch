@@ -27,12 +27,10 @@ class Copy[T, U: (Branch, MergeBranch) = Branch]:
     ) -> None:
         """Initialize a copy with optional name or branch given."""
         self._value = deepcopy(value)
-        new_branch = branch if branch is not None else Branch()
+        new_branch = branch if branch is not None else Branch(branch_name)
 
         def valide_branch(new_branch: Branch) -> TypeIs[U]:
-            return isinstance(
-                new_branch, type(branch) if branch is not None else Branch
-            )
+            return isinstance(new_branch, type(branch) if branch is not None else Branch)
 
         if valide_branch(new_branch):
             self._branch = new_branch
@@ -58,10 +56,10 @@ class Copy[T, U: (Branch, MergeBranch) = Branch]:
 
         return new_copy
 
-    def merge(
+    def merge[V](
         self,
-        *other_copies: Copy[T],
-        new_value: T | None = None,
+        *other_copies: Copy[V, Branch | MergeBranch],
+        value: T | None = None,
         name: str | None = None,
     ) -> Copy[T, MergeBranch]:
         """
@@ -72,7 +70,7 @@ class Copy[T, U: (Branch, MergeBranch) = Branch]:
 
         Args:
             other_copies: Other copies to merge with self.
-            new_value: New copy's value.
+            value: New copy's value.
             name: New branch's name.
 
         Returns:
@@ -80,8 +78,8 @@ class Copy[T, U: (Branch, MergeBranch) = Branch]:
             and other_copies' branches.
 
         """
-        if new_value is None:
-            new_value = self.value
+        if value is None:
+            value = self.value
 
         merge_branch = MergeBranch(
             self._branch.version,
@@ -90,7 +88,7 @@ class Copy[T, U: (Branch, MergeBranch) = Branch]:
             name=name,
         )
 
-        new_copy = Copy(new_value, None, branch=merge_branch)
+        new_copy = Copy(value, None, branch=merge_branch)
 
         self._branch._children.append(merge_branch)
 

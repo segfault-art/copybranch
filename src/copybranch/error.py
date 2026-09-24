@@ -1,8 +1,8 @@
-"""Definition of all copypaste's errors."""
+"""Definition of all copybranch's errors."""
 
 
 class Error(Exception):
-    """Base error for all other copypaste's errors."""
+    """Base error for all other copybranch's errors."""
 
 
 class BranchError(Error):

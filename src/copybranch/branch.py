@@ -26,11 +26,6 @@ class Branch:
 
         Branch._next_id += 1
 
-    def __del__(self) -> None:
-        """Delete a branch and remove it from parent."""
-        if self._parent is not None:
-            self._parent._children.remove(self)
-
     @override
     def __repr__(self) -> str:
         return (
@@ -106,12 +101,6 @@ class MergeBranch(Branch):
         self._id = Branch._next_id
 
         Branch._next_id += 1
-
-    @override
-    def __del__(self) -> None:
-        """Delete a branch and remove it from all parents."""
-        for parent in self._parents:
-            parent._children.remove(self)
 
     @override
     def __repr__(self) -> str:

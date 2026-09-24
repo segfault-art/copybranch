@@ -31,7 +31,7 @@ uv add copybranch
 
 ## Uso
 
-Há alguns exemplos na pasta [examples](examples/).
+Há alguns exemplos na pasta [examples](examples/pt-BR).
 
 ```Python
 from copybranch import Copy
@@ -85,6 +85,7 @@ As ferramentas que foram utilizadas na aplicação incluem:
 
 - Mypy
 - Ruff
+- Ty
 - SonarQube
 
 ## Licença
