@@ -45,6 +45,7 @@ def test_merge_branch_family_functions() -> None:
         merge_branch.first_parent()
 
     merge_branch._parents = ()
+    merge_branch._family._parents = merge_branch._family._parents[:1]
 
     with pytest.raises(ParentError):
         merge_branch.first_parent()

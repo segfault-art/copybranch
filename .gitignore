@@ -14,7 +14,11 @@ wheels/
 .ruff_cache/
 .scannerwork/
 .sonarlint/
+
+# PyTest
 .pytest_cache/
+.coverage
+report.xml
 
 # IDEs
 .vscode/

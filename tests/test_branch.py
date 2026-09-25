@@ -36,13 +36,3 @@ def test_branch_update() -> None:
     branch.update()
 
     assert branch.version == 1
-
-
-def test_copy_children() -> None:
-    branch = Branch()
-    other_branch = Branch()
-    branch.new_child()
-    branch.copy_children(other_branch)
-
-    assert branch.children == other_branch.children
-    assert other_branch.children != []

@@ -7,7 +7,7 @@ from .branch import Branch, MergeBranch
 
 
 class Copy[T, U: (Branch, MergeBranch) = Branch]:
-    """Class for copies."""
+    """Class for copies. Represents a Copy."""
 
     _branch: U
 
